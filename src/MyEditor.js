@@ -30,11 +30,6 @@ const CustomToolbar = () => (
   </div>
 )
 
-function test(){
-  console.log('test');
-  //How to call the 
-}
-
 /**
  * Basic Editor
  */
@@ -43,6 +38,20 @@ class MyEditor extends Component {
     constructor(props) {
         super(props)
         this.state={text:''}
+
+        var self=this;//Usefull to bind the method
+        this.modules = {
+          toolbar: {
+            container: "#toolbar",
+            'image-tooltip': true,
+            'link-tooltip': true,
+            handlers:{
+              test: this.addGanhamStyle.bind(self),
+            }
+          }
+        }
+
+        this.reactQuillRef=null;
     }
 
     onTextChange(value) { 
@@ -52,24 +61,25 @@ class MyEditor extends Component {
     addGanhamStyle(){
       const editor = this.reactQuillRef.getEditor();
       const index = editor.getSelection().index || 0;
-      editor.insertText(index + 1, 'Ganham Style!!!!');
+      editor.insertText(index, 'Ganham Style!!!!');
       editor.insertText(index + 1, '\n');
+      console.log("Ganham Style");
     }
 
     render(){
-        return (
-            <div>
-                <CustomToolbar />
-                <ReactQuill
-                  ref={(el) => { this.reactQuillRef = el; }}
-                  value={this.state.body}
-                  onChange={this.handleChange}
-                  modules={MyEditor.modules}
-                  formats={MyEditor.formats}
-                  theme="snow"
-                />
-             </div>
-        )
+      return (
+        <div>
+         <CustomToolbar />
+         <ReactQuill
+            ref = { (el) => { this.reactQuillRef = el; } }
+            value = {this.state.body}
+            onChange = {this.handleChange}
+            modules = {this.modules}
+            formats = {MyEditor.formats}
+            theme="snow"
+          />
+        </div>
+      )
     }
 
 }
@@ -80,16 +90,5 @@ MyEditor.formats = [
   'list', 'bullet', 'indent',
   'link', 'image', 'color',
 ]
-
-MyEditor.modules = {
-  toolbar: {
-    container: "#toolbar",
-    'image-tooltip': true,
-    'link-tooltip': true,
-    handlers:{
-      test: test
-    }
-  }
-}
 
 export default MyEditor;
