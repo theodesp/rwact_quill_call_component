@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
-
 import '../node_modules/quill/dist/quill.snow.css';
-
 
 const CustomToolbar = () => (
   <div id="toolbar">
@@ -24,9 +22,15 @@ const CustomToolbar = () => (
       <option value="#d0d1d2"></option>
       <option selected></option>
     </select>
-    <button className="ql-test">
-      <span>Test</span>
-    </button>    
+    <button className="ql-vimeo">
+        <span className="toolbar-space">Vimeo</span>
+    </button>
+    <button className="ql-dailyMotion">
+        <span className="toolbar-space" >Dailymotion</span>
+    </button>
+    <button className="ql-youtube" >
+      <span className="toolbar-space" >Youtube</span>
+    </button>
   </div>
 )
 
@@ -46,7 +50,9 @@ class MyEditor extends Component {
             'image-tooltip': true,
             'link-tooltip': true,
             handlers:{
-              test: this.addGanhamStyle.bind(self),
+              dailyMotion: this.insertDailyMotion.bind(self),
+              youtube: this.insertYoutube.bind(self),
+              vimeo: this.insertVimeo.bind(self)
             }
           }
         }
@@ -58,12 +64,22 @@ class MyEditor extends Component {
         this.setState({text:value})
     }
 
-    addGanhamStyle(){
-      const editor = this.reactQuillRef.getEditor();
-      const index = editor.getSelection().index || 0;
-      editor.insertText(index, 'Ganham Style!!!!');
-      editor.insertText(index + 1, '\n');
-      console.log("Ganham Style");
+    insertVideo(video) {
+        const editor = this.reactQuillRef.getEditor();
+        const index = editor.getSelection().index || 0;
+        editor.insertEmbed(index, 'video', video);
+    }
+
+    insertDailyMotion(){
+      this.insertVideo("//www.dailymotion.com/embed/video/x5rx12e");
+    }
+
+    insertYoutube(){
+      this.insertVideo("https://www.youtube.com/embed/1rDQccuLEvY?ecver=2");
+    }
+
+    insertVimeo(){
+      this.insertVideo("https://player.vimeo.com/video/221105534");
     }
 
     render(){
@@ -88,7 +104,7 @@ MyEditor.formats = [
   'header', 'font', 'size',
   'bold', 'italic', 'underline', 'strike', 'blockquote',
   'list', 'bullet', 'indent',
-  'link', 'image', 'color',
+  'link', 'image', 'color','script','video'
 ]
 
 export default MyEditor;
