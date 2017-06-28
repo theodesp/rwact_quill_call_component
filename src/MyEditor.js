@@ -31,6 +31,9 @@ const CustomToolbar = () => (
     <button className="ql-youtube" >
       <span className="toolbar-space" >Youtube</span>
     </button>
+    <button className="ql-facebook">
+       <span className="toolbar-space">Facebook</span>
+    </button>
   </div>
 )
 
@@ -52,7 +55,8 @@ class MyEditor extends Component {
             handlers:{
               dailyMotion: this.insertDailyMotion.bind(self),
               youtube: this.insertYoutube.bind(self),
-              vimeo: this.insertVimeo.bind(self)
+              vimeo: this.insertVimeo.bind(self),
+              facebook: this.insertFacebook.bind(self)
             }
           }
         }
@@ -80,6 +84,10 @@ class MyEditor extends Component {
 
     insertVimeo(){
       this.insertVideo("https://player.vimeo.com/video/221105534");
+    }
+
+    insertFacebook(){
+      this.insertVideo("https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fenikosgr%2Fposts%2F1427262130644621&width=500")
     }
 
     render(){
