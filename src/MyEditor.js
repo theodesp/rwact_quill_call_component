@@ -71,7 +71,21 @@ class MyEditor extends Component {
     insertVideo(video) {
         const editor = this.reactQuillRef.getEditor();
         const index = editor.getSelection().index || 0;
-        editor.insertEmbed(index, 'video', video);
+        // editor.insertEmbed(index, 'video', video);
+        // editor.format('width',1000);
+        // editor.format('height',1000);
+       const delta= [
+         {
+           insert: {
+            video: video,
+            attributes: {
+              width: 900,
+              height: 900
+            }
+         }
+        },
+       ]
+       editor.updateContents(delta);
     }
 
     insertDailyMotion(){
