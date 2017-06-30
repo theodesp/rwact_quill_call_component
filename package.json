@@ -8,6 +8,7 @@
     "react-fontawesome": "^1.6.1"
   },
   "devDependencies": {
+    "react-quill": "^1.0.0",
     "react-scripts": "1.0.7"
   },
   "scripts": {
